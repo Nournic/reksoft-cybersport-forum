@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,9 @@ public class TeamCsvReportService implements ReportService{
                 String[] line = {
                         String.valueOf(team.getId()),
                         team.getTeamName(),
-                        team.getPlayers() != null ? String.valueOf(team.getPlayers()) : "",
+                        team.getPlayers() != null ? team.getPlayers().stream()
+                                .map((x)->x.getName() + x.getSurname())
+                                .collect(Collectors.joining(", ")) : ""
                 };
                 writer.writeNext(line);
             }
