@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class PlayerCsvReportService implements ReportService{
@@ -21,16 +20,17 @@ public class PlayerCsvReportService implements ReportService{
 
         File file = new File(filePath);
         try (CSVWriter writer = new CSVWriter(new FileWriter(file))) {
-            String[] header = {"ID", "Combined Name", "Nickname", "Team Name", "Country"};
+            String[] header = {"ID", "Combined Name", "Nickname", "Team Name", "Country", "Fullname"};
             writer.writeNext(header);
 
             for (Player player : players) {
                 String[] line = {
                         String.valueOf(player.getId()),
-                        player.getFullName(),
+                        player.getCombinedName(),
                         player.getNickname(),
-                        player.getCountry() != null ? String.valueOf(player.getCountry()) : "",
-                        player.getTeamName()
+                        player.getTeamName(),
+                        player.getCountry() != null ?  player.getCountry() : "",
+                        player.getFullName()
                 };
                 writer.writeNext(line);
             }
