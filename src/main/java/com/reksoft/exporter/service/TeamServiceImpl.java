@@ -19,7 +19,7 @@ public class TeamServiceImpl implements TeamService{
 
     @Override
     public List<Team> getTeams() {
-        List<TeamDto> playerViewDtos = teamsApiRepository.getTeams();
-        return playerViewDtos.stream().map(teamMapper::map).toList();
+        List<TeamDto> listTeamDto = teamsApiRepository.getTeams();
+        return listTeamDto.stream().map(teamMapper::map).toList();
     }
 }

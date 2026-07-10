@@ -8,7 +8,7 @@ public class PlayerDto {
     private String name;
     private String surname;
     private String nickname;
-    private Integer country;
+    private String country;
     private Integer teamId;
     private TeamDto team;
 }
