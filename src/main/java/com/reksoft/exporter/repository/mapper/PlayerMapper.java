@@ -4,24 +4,26 @@ import com.reksoft.exporter.model.Player;
 import com.reksoft.exporter.repository.dto.PlayerViewDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface PlayerMapper {
-    @Mapping(target = "combinedName", source = "combinedName")
-    @Mapping(target = "surname", source = "surname")
-    @Mapping(target = "name", source = "name")
     @Mapping(target = "nickname", source = "nickName")
-    @Mapping(target = "country", source = "country")
-    @Mapping(target = "fullName", expression = "java(buildFullname(dto.getNickName(), dto.getName(), dto.getSurname()))")
+    @Mapping(target = "fullName", source = "." , qualifiedByName = "fullname-builder")
     Player map(PlayerViewDto dto);
 
-    default String buildFullname(String nickname, String name, String surname){
+    @Named("fullname-builder")
+    static String buildFullname(PlayerViewDto dto){
+        if (dto == null) {
+            return null;
+        }
+
         StringBuilder fullName = new StringBuilder();
-        fullName.append(surname);
-        fullName.append(" '");
-        fullName.append(nickname);
-        fullName.append("' ");
-        fullName.append(name);
+        fullName.append(dto.getSurname());
+        fullName.append(" “");
+        fullName.append(dto.getNickName());
+        fullName.append("” ");
+        fullName.append(dto.getName());
         return fullName.toString();
     }
 
