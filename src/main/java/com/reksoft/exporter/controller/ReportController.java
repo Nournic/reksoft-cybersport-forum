@@ -1,6 +1,8 @@
 package com.reksoft.exporter.controller;
 
 import com.reksoft.exporter.service.PlayerCsvReportService;
+import com.reksoft.exporter.service.ReportService;
+import com.reksoft.exporter.service.TeamCsvReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -23,7 +25,8 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class ReportController {
 
-    private final PlayerCsvReportService reportService;
+    private final PlayerCsvReportService playerReportService;
+    private final TeamCsvReportService teamReportService;
     private final Clock clock;
 
     @GetMapping
@@ -33,21 +36,25 @@ public class ReportController {
 
     @GetMapping("/player/download")
     public ResponseEntity<Resource> downloadPlayerReport() throws IOException {
+        return this.getReport(playerReportService, "player_report_%s.csv");
+    }
+
+    @GetMapping("/team/download")
+    public ResponseEntity<Resource> downloadTeamReport() throws IOException {
+        return this.getReport(teamReportService, "team_report_%s.csv");
+    }
+
+    private ResponseEntity<Resource> getReport(ReportService service, String filename) throws IOException{
         String timestamp = LocalDateTime.now(clock).format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-        String filename = "player_report_%s.csv".formatted(timestamp);
-        File reportFile = reportService.generateReport(System.getProperty("java.io.tmpdir") + File.separator + filename);
+        String formattedFilename = filename.formatted(timestamp);
+        File reportFile = service.generateReport(System.getProperty("java.io.tmpdir") + File.separator + formattedFilename);
 
         FileSystemResource resource = new FileSystemResource(reportFile);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + formattedFilename)
                 .contentLength(Files.size(reportFile.toPath()))
                 .contentType(MediaType.parseMediaType("text/csv"))
                 .body(resource);
-    }
-
-    @GetMapping("/team/download")
-    public ResponseEntity<Resource> downloadTeamReport() {
-        throw new RuntimeException("Отчёт по командам пока не реализован");
     }
 }
