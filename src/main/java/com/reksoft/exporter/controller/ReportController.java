@@ -1,8 +1,8 @@
 package com.reksoft.exporter.controller;
 
-import com.reksoft.exporter.service.PlayerCsvReportService;
-import com.reksoft.exporter.service.ReportService;
-import com.reksoft.exporter.service.TeamCsvReportService;
+import com.reksoft.exporter.service.report.PlayerCsvReportService;
+import com.reksoft.exporter.service.report.ReportService;
+import com.reksoft.exporter.service.report.TeamCsvReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;

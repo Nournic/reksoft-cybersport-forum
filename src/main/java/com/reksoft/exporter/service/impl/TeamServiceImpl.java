@@ -1,9 +1,10 @@
-package com.reksoft.exporter.service;
+package com.reksoft.exporter.service.impl;
 
 import com.reksoft.exporter.model.Team;
 import com.reksoft.exporter.repository.TeamsApiRepository;
 import com.reksoft.exporter.repository.dto.TeamDto;
 import com.reksoft.exporter.repository.mapper.TeamMapper;
+import com.reksoft.exporter.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TeamServiceImpl implements TeamService{
+public class TeamServiceImpl implements TeamService {
     private final TeamsApiRepository teamsApiRepository;
     private final TeamMapper teamMapper;
 

@@ -1,9 +1,10 @@
-package com.reksoft.exporter.service;
+package com.reksoft.exporter.service.impl;
 
 import com.reksoft.exporter.model.Player;
 import com.reksoft.exporter.repository.PlayerApiRepository;
 import com.reksoft.exporter.repository.dto.PlayerViewDto;
 import com.reksoft.exporter.repository.mapper.PlayerMapper;
+import com.reksoft.exporter.service.PlayerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
