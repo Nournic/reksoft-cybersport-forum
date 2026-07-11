@@ -1,5 +1,6 @@
 package com.reksoft.exporter.controller;
 
+import com.reksoft.exporter.service.report.MatchHistoryCsvReportService;
 import com.reksoft.exporter.service.report.PlayerCsvReportService;
 import com.reksoft.exporter.service.report.ReportService;
 import com.reksoft.exporter.service.report.TeamCsvReportService;
@@ -27,6 +28,7 @@ public class ReportController {
 
     private final PlayerCsvReportService playerReportService;
     private final TeamCsvReportService teamReportService;
+    private final MatchHistoryCsvReportService matchHistoryReportService;
     private final Clock clock;
 
     @GetMapping
@@ -43,6 +45,12 @@ public class ReportController {
     public ResponseEntity<Resource> downloadTeamReport() throws IOException {
         return this.getReport(teamReportService, "team_report_%s.csv");
     }
+
+    @GetMapping("/match-history/download")
+    public ResponseEntity<Resource> downloadMatchHistory() throws IOException {
+        return this.getReport(matchHistoryReportService, "match_history_report_%s.csv");
+    }
+
 
     private ResponseEntity<Resource> getReport(ReportService service, String filename) throws IOException{
         String timestamp = LocalDateTime.now(clock).format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
