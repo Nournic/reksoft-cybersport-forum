@@ -1,5 +1,8 @@
 package com.reksoft.exporter.repository.dto;
 
+import com.reksoft.exporter.repository.dto.view.MatchHistoryViewDto;
+import com.reksoft.exporter.repository.dto.view.RatingViewDto;
+import com.reksoft.exporter.repository.dto.view.TournamentParticipantInfoViewDto;
 import lombok.Data;
 
 import java.util.List;
@@ -8,9 +11,9 @@ import java.util.List;
 public class TeamDto {
     private Integer id;
     private String name;
-    private List<PlayerDto> players;
-    private List<TournamentParticipantInfoDto> teamTournamentResults;
-    private List<RatingDto> teamRatings;
-    private List<MatchHistoryDto> matchesWon;
-    private List<MatchHistoryDto> matchesLost;
+    private List<PlayerViewDto> players;
+    private List<TournamentParticipantInfoViewDto> teamTournamentResults;
+    private List<RatingViewDto> teamRatings;
+    private List<MatchHistoryViewDto> matchesWon;
+    private List<MatchHistoryViewDto> matchesLost;
 }

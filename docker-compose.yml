@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  exporter:
+    build: .
+    container_name: exporter_java
+    environment:
+      API_BASE_URL: ${API_BASE_URL}
+    ports:
+      - "8080:8080"
